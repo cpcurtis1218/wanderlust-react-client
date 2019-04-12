@@ -36,9 +36,12 @@ class Destinations extends Component {
           <h3>Destinations:</h3>
           <ul>
             {this.state.destinations.map(dest => (
-              <li key={dest.id}>
+              <li key={dest.id} className="destination">
+                <p className="m-0"><u>Location:</u></p>
                 <h5>{dest.location}</h5>
+                <p className="m-0"><u>Contact:</u></p>
                 <p>{dest.contact}</p>
+                <p className="m-0"><u>Note:</u></p>
                 <p>{dest.note}</p>
               </li>
             ))}
