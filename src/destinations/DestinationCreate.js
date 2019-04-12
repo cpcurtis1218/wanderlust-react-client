@@ -3,6 +3,8 @@ import axios from 'axios'
 import apiUrl from '../apiConfig'
 import { Redirect } from 'react-router'
 
+import messages from '../auth/messages'
+
 class DestinationCreate extends Component {
   constructor () {
     super()
@@ -22,7 +24,7 @@ class DestinationCreate extends Component {
 
     // destructuring the destination and props objects
     const { destination } = this.state
-    const { user } = this.props
+    const { user, alert } = this.props
 
     axios({
       url: `${apiUrl}/destinations`,
@@ -35,6 +37,7 @@ class DestinationCreate extends Component {
       .then(response => this.setState({
         created: true,
         destination: response.data.destination }))
+      .then(() => alert(messages.createSuccess, 'success'))
       .catch(() => this.setState({
         destination: { ...destination, location: '', contact: '', note: '' }
       }),
