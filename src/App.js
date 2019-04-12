@@ -59,10 +59,10 @@ class App extends Component {
             <ChangePassword alert={this.alert} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/destinations' render={() => (
-            <Destinations user={user} />
+            <Destinations alert={this.alert} user={user} />
           )} />
           <AuthenticatedRoute user={user} path='/destinations-create' render={() => (
-            <DestinationCreate user={user} />
+            <DestinationCreate alert={this.alert} user={user} />
           )} />
         </main>
       </React.Fragment>
