@@ -10,6 +10,7 @@ import SignOut from './auth/components/SignOut'
 import ChangePassword from './auth/components/ChangePassword'
 
 import Destinations from './destinations/Destinations'
+import DestinationCreate from './destinations/DestinationCreate'
 
 import Alert from 'react-bootstrap/Alert'
 
@@ -59,6 +60,9 @@ class App extends Component {
           )} />
           <AuthenticatedRoute user={user} path='/destinations' render={() => (
             <Destinations user={user} />
+          )} />
+          <AuthenticatedRoute user={user} path='/destinations-create' render={() => (
+            <DestinationCreate user={user} />
           )} />
         </main>
       </React.Fragment>
