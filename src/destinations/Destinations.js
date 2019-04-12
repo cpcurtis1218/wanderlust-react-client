@@ -1,5 +1,6 @@
 import React, { Component, Fragment } from 'react'
 import { Link } from 'react-router-dom'
+import { Redirect } from 'react-router'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 
@@ -10,7 +11,8 @@ class Destinations extends Component {
     super()
 
     this.state = {
-      destinations: []
+      destinations: [],
+      redirect: false
     }
   }
 
@@ -40,31 +42,38 @@ class Destinations extends Component {
         'Authorization': `Token token=${user.token}`
       }
     })
+      .then(() => this.setState({
+        redirect: true
+      }))
       .then(() => alert(messages.deleteSuccess, 'success'))
       .catch(console.log)
   }
 
   render () {
-    return (
-      <Fragment>
-        <Link to="/destinations-create">Add New Destination</Link>
-        <div className="m-4 p-4 shadow">
-          <h3>Destinations:</h3>
-          <ul>
-            {this.state.destinations.map(dest => (
-              <li key={dest.id} className="destination">
-                <p className="m-0"><u>Location:</u></p>
-                <h5>{dest.location}</h5>
-                <p className="m-0"><u>Contact:</u></p>
-                <p>{dest.contact}</p>
-                <p className="m-0"><u>Note:</u></p>
-                <p>{dest.note}</p>
-                <button onClick={() => { this.handleDelete(dest.id) }}>Delete</button>
-              </li>
-            ))}
-          </ul>
-        </div>
-      </Fragment>)
+    if (this.state.redirect) {
+      return <Redirect to="/" />
+    } else {
+      return (
+        <Fragment>
+          <Link to="/destinations-create">Add New Destination</Link>
+          <div className="m-4 p-4 shadow">
+            <h3>Destinations:</h3>
+            <ul>
+              {this.state.destinations.map(dest => (
+                <li key={dest.id} className="destination">
+                  <p className="m-0"><u>Location:</u></p>
+                  <h5>{dest.location}</h5>
+                  <p className="m-0"><u>Contact:</u></p>
+                  <p>{dest.contact}</p>
+                  <p className="m-0"><u>Note:</u></p>
+                  <p>{dest.note}</p>
+                  <button onClick={() => { this.handleDelete(dest.id) }}>Delete</button>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </Fragment>)
+    }
   }
 }
 export default Destinations
