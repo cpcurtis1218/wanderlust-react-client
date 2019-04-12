@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 
+import messages from '../auth/messages'
+
 class Destinations extends Component {
   constructor () {
     super()
@@ -28,6 +30,20 @@ class Destinations extends Component {
       .catch(console.log)
   }
 
+  handleDelete = id => {
+    const { user, alert } = this.props
+
+    axios({
+      url: `${apiUrl}/destinations/${id}`,
+      method: 'delete',
+      headers: {
+        'Authorization': `Token token=${user.token}`
+      }
+    })
+      .then(() => alert(messages.deleteSuccess, 'success'))
+      .catch(console.log)
+  }
+
   render () {
     return (
       <Fragment>
@@ -43,6 +59,7 @@ class Destinations extends Component {
                 <p>{dest.contact}</p>
                 <p className="m-0"><u>Note:</u></p>
                 <p>{dest.note}</p>
+                <button onClick={() => { this.handleDelete(dest.id) }}>Delete</button>
               </li>
             ))}
           </ul>
