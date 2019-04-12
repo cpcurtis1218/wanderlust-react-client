@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import axios from 'axios'
 import apiUrl from '../apiConfig'
 
@@ -29,18 +30,21 @@ class Destinations extends Component {
 
   render () {
     return (
-      <div className="m-4 p-4 shadow">
-        <h3>Destinations:</h3>
-        <ul>
-          {this.state.destinations.map(dest => (
-            <li key={dest.id}>
-              <h5>{dest.location}</h5>
-              <p>{dest.contact}</p>
-              <p>{dest.note}</p>
-            </li>
-          ))}
-        </ul>
-      </div>)
+      <Fragment>
+        <Link to="/destinations-create">Add New Destination</Link>
+        <div className="m-4 p-4 shadow">
+          <h3>Destinations:</h3>
+          <ul>
+            {this.state.destinations.map(dest => (
+              <li key={dest.id}>
+                <h5>{dest.location}</h5>
+                <p>{dest.contact}</p>
+                <p>{dest.note}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </Fragment>)
   }
 }
 export default Destinations
